@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KRAI Scoreboard - Kontes Robot ABU Indonesia</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Papan Skor Digital interaktif untuk Kontes Robot ABU Indonesia (KRAI). Lengkap dengan timer 3 menit, log skor, checklist tugas robot, dan efek suara synthesizer.">
+  <meta name="keywords" content="KRAI, Robocon, Scoreboard, Papan Skor, Lomba Robot, Robotika Indonesia">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons for modern UI icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom Styling -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Animated Gradients -->
+  <div class="bg-glow bg-glow-red"></div>
+  <div class="bg-glow bg-glow-blue"></div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo-area">
+        <i class="fa-solid fa-robot logo-icon"></i>
+        <div>
+          <h1>PAPAN SKOR KRAI</h1>
+          <p>KONTES ROBOT ABU INDONESIA</p>
+        </div>
+      </div>
+      
+      <!-- Match Info Control -->
+      <div class="match-info-card">
+        <div class="match-detail">
+          <span class="match-label" id="matchStageLabel">PENYISIHAN</span>
+          <span class="match-number" id="matchNumberLabel">MATCH 01</span>
+        </div>
+        <button class="btn-icon" id="editMatchBtn" title="Edit Detail Pertandingan">
+          <i class="fa-solid fa-pen-to-square"></i>
+        </button>
+      </div>
+
+      <!-- Quick Action Utility -->
+      <div class="header-utilities">
+        <button class="btn-utility" id="soundToggleBtn" title="Aktifkan/Bisukan Suara">
+          <i class="fa-solid fa-volume-high"></i>
+        </button>
+        <button class="btn-utility" id="keyboardHelpBtn" title="Pintasan Keyboard">
+          <i class="fa-solid fa-keyboard"></i>
+        </button>
+        <button class="btn-utility" id="settingsBtn" title="Pengaturan Lanjutan">
+          <i class="fa-solid fa-gear"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Scoreboard Grid -->
+    <main class="scoreboard-grid">
+      
+      <!-- RED TEAM PANEL (Left) -->
+      <section class="team-panel team-red" id="panelRed">
+        <div class="team-header">
+          <div class="team-color-indicator"></div>
+          <input type="text" class="team-name-input" id="redTeamName" value="TIM MERAH" title="Klik untuk mengubah nama tim">
+        </div>
+        
+        <!-- Score Box -->
+        <div class="score-container">
+          <div class="score-display digital" id="redScore">000</div>
+          <div class="score-controls">
+            <button class="btn-score btn-score-add" data-team="red" data-value="1">+1</button>
+            <button class="btn-score btn-score-add" data-team="red" data-value="5">+5</button>
+            <button class="btn-score btn-score-add" data-team="red" data-value="10">+10</button>
+            <button class="btn-score btn-score-sub" data-team="red" data-value="-1">-1</button>
+            <button class="btn-score btn-score-sub" data-team="red" data-value="-5">-5</button>
+          </div>
+        </div>
+
+        <!-- Task / Zone Achievements -->
+        <div class="achievements-section">
+          <h3>PENCAPAIAN TUGAS (ZONA)</h3>
+          <div class="tasks-grid">
+            <label class="task-checkbox-card">
+              <input type="checkbox" class="task-checkbox" data-team="red" data-points="10" id="red_task1">
+              <span class="checkbox-custom"></span>
+              <span class="task-name">Zona 1 (+10 Pts)</span>
+            </label>
+            <label class="task-checkbox-card">
+              <input type="checkbox" class="task-checkbox" data-team="red" data-points="20" id="red_task2">
+              <span class="checkbox-custom"></span>
+              <span class="task-name">Zona 2 (+20 Pts)</span>
+            </label>
+            <label class="task-checkbox-card">
+              <input type="checkbox" class="task-checkbox" data-team="red" data-points="30" id="red_task3">
+              <span class="checkbox-custom"></span>
+              <span class="task-name">Zona 3 (+30 Pts)</span>
+            </label>
+            <label class="task-checkbox-card">
+              <input type="checkbox" class="task-checkbox" data-team="red" data-points="40" id="red_task4">
+              <span class="checkbox-custom"></span>
+              <span class="task-name">Tugas Khusus (+40 Pts)</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Penalty Section -->
+        <div class="penalty-section">
+          <div class="penalty-title">Pelanggaran / Warning</div>
+          <div class="penalty-dots" id="redPenalties">
+            <span class="penalty-dot" data-index="1"></span>
+            <span class="penalty-dot" data-index="2"></span>
+            <span class="penalty-dot" data-index="3"></span>
+          </div>
+          <div class="penalty-controls">
+            <button class="btn-penalty btn-add-penalty" data-team="red"><i class="fa-solid fa-plus"></i></button>
+            <button class="btn-penalty btn-remove-penalty" data-team="red"><i class="fa-solid fa-minus"></i></button>
+          </div>
+        </div>
+
+        <!-- Victory Button -->
+        <button class="btn-victory btn-victory-red" id="victoryRedBtn">
+          <i class="fa-solid fa-trophy"></i> HIROTO / VICTORY!
+        </button>
+      </section>
+
+      <!-- CENTER PANEL (Timer, Match Status & General Controls) -->
+      <section class="center-panel">
+        <!-- Main Digital Timer -->
+        <div class="timer-card">
+          <div class="timer-status" id="timerStatus">READY</div>
+          <div class="timer-display digital" id="timerDisplay">03:00</div>
+          
+          <!-- Progress Bar around timer context -->
+          <div class="timer-progress-container">
+            <div class="timer-progress-bar" id="timerProgress"></div>
+          </div>
+          
+          <!-- Timer Controls -->
+          <div class="timer-controls">
+            <button class="btn-timer-ctrl btn-play" id="playPauseBtn">
+              <i class="fa-solid fa-play"></i> START
+            </button>
+            <button class="btn-timer-ctrl btn-reset" id="resetBtn">
+              <i class="fa-solid fa-rotate-left"></i> RESET
+            </button>
+          </div>
+        </div>
+
+        <!-- Time Adjustment Controls -->
+        <div class="time-adjuster">
+          <button class="btn-adjust" id="adjustSub10" title="Kurangi 10 Detik">-10s</button>
+          <button class="btn-adjust" id="adjustSub1" title="Kurangi 1 Detik">-1s</button>
+          <span class="adjust-label">SESUAIKAN WAKTU</span>
+          <button class="btn-adjust" id="adjustAdd1" title="Tambah 1 Detik">+1s</button>
+          <button class="btn-adjust" id="adjustAdd10" title="Tambah 10 Detik">+10s</button>
+        </div>
+
+        <!-- Match Status Banner -->
+        <div class="match-announcement" id="announcementBox">
+          <span id="announcementText">Menunggu pertandingan dimulai...</span>
+        </div>
+
+        <!-- Event Log / History Panel -->
+        <div class="log-panel">
+          <div class="log-header">
+            <h3>LOG RUNDOWN PERTANDINGAN</h3>
+            <button class="btn-clean-log" id="clearLogBtn" title="Bersihkan Log">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+          <div class="log-list" id="logList">
+            <div class="log-item system">
+              <span class="log-time">03:00</span>
+              <span class="log-desc">Papan skor siap. Pertandingan belum dimulai.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BLUE TEAM PANEL (Right) -->
+      <section class="team-panel team-blue" id="panelBlue">
+        <div class="team-header">
+          <input type="text" class="team-name-input" id="blueTeamName" value="TIM BIRU" title="Klik untuk mengubah nama tim">
+          <div class="team-color-indicator"></div>
+        </div>
+        
+        <!-- Score Box -->
+        <div class="score-container">
+          <div class="score-display digital" id="blueScore">000</div>
+          <div class="score-controls">
+            <button class="btn-score btn-score-add" data-team="blue" data-value="1">+1</button>
+            <button class="btn-score btn-score-add" data-team="blue" data-value="5">+5</button>
+            <button class="btn-score btn-score-add" data-team="blue" data-value="10">+10</button>
+            <button class="btn-score btn-score-sub" data-team="blue" data-value="-1">-1</button>
+            <button class="btn-score btn-score-sub" data-team="blue" data-value="-5">-5</button>
+          </div>
+        </div>
+
+        <!-- Task / Zone Achievements -->
+        <div class="achievements-section">
+          <h3>PENCAPAIAN TUGAS (ZONA)</h3>
+          <div class="tasks-grid">
+            <label class="task-checkbox-card">
+              <input type="checkbox" class="task-checkbox" data-team="blue" data-points="10" id="blue_task1">
+              <span class="checkbox-custom"></span>
+              <span class="task-name">Zona 1 (+10 Pts)</span>
+            </label>
+            <label class="task-checkbox-card">
+              <input type="checkbox" class="task-checkbox" data-team="blue" data-points="20" id="blue_task2">
+              <span class="checkbox-custom"></span>
+              <span class="task-name">Zona 2 (+20 Pts)</span>
+            </label>
+            <label class="task-checkbox-card">
+              <input type="checkbox" class="task-checkbox" data-team="blue" data-points="30" id="blue_task3">
+              <span class="checkbox-custom"></span>
+              <span class="task-name">Zona 3 (+30 Pts)</span>
+            </label>
+            <label class="task-checkbox-card">
+              <input type="checkbox" class="task-checkbox" data-team="blue" data-points="40" id="blue_task4">
+              <span class="checkbox-custom"></span>
+              <span class="task-name">Tugas Khusus (+40 Pts)</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Penalty Section -->
+        <div class="penalty-section">
+          <div class="penalty-title">Pelanggaran / Warning</div>
+          <div class="penalty-dots" id="bluePenalties">
+            <span class="penalty-dot" data-index="1"></span>
+            <span class="penalty-dot" data-index="2"></span>
+            <span class="penalty-dot" data-index="3"></span>
+          </div>
+          <div class="penalty-controls">
+            <button class="btn-penalty btn-add-penalty" data-team="blue"><i class="fa-solid fa-plus"></i></button>
+            <button class="btn-penalty btn-remove-penalty" data-team="blue"><i class="fa-solid fa-minus"></i></button>
+          </div>
+        </div>
+
+        <!-- Victory Button -->
+        <button class="btn-victory btn-victory-blue" id="victoryBlueBtn">
+          <i class="fa-solid fa-trophy"></i> HIROTO / VICTORY!
+        </button>
+      </section>
+    </main>
+  </div>
+
+  <!-- MODALS -->
+
+  <!-- 1. EDIT MATCH INFO MODAL -->
+  <div class="modal-overlay" id="editMatchModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Ubah Detail Pertandingan</h2>
+        <button class="close-modal-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="matchStageInput">Babak Pertandingan</label>
+          <input type="text" id="matchStageInput" value="PENYISIHAN">
+        </div>
+        <div class="form-group">
+          <label for="matchNumberInput">Nomor Match</label>
+          <input type="text" id="matchNumberInput" value="MATCH 01">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary close-modal-btn">Batal</button>
+        <button class="btn btn-primary" id="saveMatchDetailsBtn">Simpan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. KEYBOARD SHORTCUTS MODAL -->
+  <div class="modal-overlay" id="keyboardHelpModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Pintasan Keyboard (Hotkeys)</h2>
+        <button class="close-modal-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="shortcut-list">
+          <div class="shortcut-item"><kbd>Spasi</kbd> <span>Start / Pause Timer</span></div>
+          <div class="shortcut-item"><kbd>R</kbd> <span>Reset Papan Skor & Timer</span></div>
+          <div class="shortcut-divider">TIM MERAH (Kiri)</div>
+          <div class="shortcut-item"><kbd>Q</kbd> <span>+1 Poin Merah</span></div>
+          <div class="shortcut-item"><kbd>A</kbd> <span>-1 Poin Merah</span></div>
+          <div class="shortcut-item"><kbd>W</kbd> <span>+5 Poin Merah</span></div>
+          <div class="shortcut-item"><kbd>S</kbd> <span>Tambah Pelanggaran Merah</span></div>
+          <div class="shortcut-divider">TIM BIRU (Kanan)</div>
+          <div class="shortcut-item"><kbd>P</kbd> <span>+1 Poin Biru</span></div>
+          <div class="shortcut-item"><kbd>L</kbd> <span>-1 Poin Biru</span></div>
+          <div class="shortcut-item"><kbd>O</kbd> <span>+5 Poin Biru</span></div>
+          <div class="shortcut-item"><kbd>K</kbd> <span>Tambah Pelanggaran Biru</span></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary close-modal-btn">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. ADVANCED SETTINGS MODAL -->
+  <div class="modal-overlay" id="settingsModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Pengaturan Papan Skor</h2>
+        <button class="close-modal-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="durationInput">Durasi Pertandingan (Detik)</label>
+          <input type="number" id="durationInput" value="180" min="10" max="600">
+          <small class="form-help">Default KRAI: 180 detik (3 menit)</small>
+        </div>
+        <div class="form-group">
+          <label for="victoryConditionInput">Nama Kondisi Kemenangan Mutlak</label>
+          <input type="text" id="victoryConditionInput" value="HIROTO">
+          <small class="form-help">Contoh: HIROTO (KRAI 2026), CHEERS (Robocon 2025)</small>
+        </div>
+        <div class="form-group-checkbox">
+          <label>
+            <input type="checkbox" id="autoScoreFromTasks" checked>
+            <span>Hitung skor otomatis dari checklist tugas</span>
+          </label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary close-modal-btn">Batal</button>
+        <button class="btn btn-primary" id="saveSettingsBtn">Simpan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom JS -->
+  <script src="app.js"></script>
+</body>
+</html>
