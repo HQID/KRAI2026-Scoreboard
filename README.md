@@ -4,22 +4,6 @@ Aplikasi papan skor interaktif ini dirancang khusus untuk memenuhi kebutuhan per
 
 ---
 
-## 📷 Tangkapan Layar Aplikasi (Slide Preview)
-
-Berikut adalah beberapa tampilan fitur utama aplikasi scoreboard yang dapat digeser:
-
-````carousel
-![Antarmuka Utama Scoreboard (Ready)](C:/Users/asus/.gemini/antigravity/brain/d652d126-e633-407f-b993-3cbc9810add7/artifacts/initial_state_1779597955912.png)
-<!-- slide -->
-![Pengaturan Lanjutan (Durasi & Nama Kemenangan Mutlak)](C:/Users/asus/.gemini/antigravity/brain/d652d126-e633-407f-b993-3cbc9810add7/artifacts/settings_modal_1779598070731.png)
-<!-- slide -->
-![Pintasan Keyboard (Hotkeys)](C:/Users/asus/.gemini/antigravity/brain/d652d126-e633-407f-b993-3cbc9810add7/artifacts/keyboard_shortcuts_1779598090660.png)
-<!-- slide -->
-![Tampilan Kemenangan Mutlak (HIROTO)](C:/Users/asus/.gemini/antigravity/brain/d652d126-e633-407f-b993-3cbc9810add7/artifacts/victory_state_1779598115864.png)
-````
-
----
-
 ## 🚀 Fitur Utama
 
 1. **Timer Presisi 3 Menit (180 Detik)**
